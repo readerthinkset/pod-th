@@ -1153,7 +1153,7 @@ Return EXACTLY {batch_size} turns as a JSON array (no markdown):
             resp = requests.post("https://gen.pollinations.ai/v1/chat/completions", json={
                 "model": model_name,
                 "messages": [
-                    {"role": "system", "content": "You write natural A2-level Thai podcast scripts with VERY clear punctuation. Every sentence must have at least 2 commas for natural TTS pauses. Ton and Mali strictly alternate. Highlight 1 key target word per turn in double asterisks. No filler sounds. CRITICAL: the target field must contain ONLY Thai . The translit field must contain ONLY Latin letters: romanization. English belongs only in the english field. Output single compact JSON array without unescaped newlines inside strings."},
+                    {"role": "system", "content": "You write natural A2-level Thai podcast scripts with VERY clear punctuation. Every sentence must have at least 2 commas for natural TTS pauses. Ton and Mali strictly alternate. Highlight 1 key target word per turn in double asterisks. No filler sounds. CRITICAL: the target field must contain ONLY Thai . Each host addresses the OTHER host by name: Mali greets Ton and Ton greets Mali. No host ever addresses themselves by their own name; the only exception is introducing yourself. The translit field must contain ONLY Latin letters: romanization. English belongs only in the english field. Output single compact JSON array without unescaped newlines inside strings."},
                     {"role": "user", "content": prompt}
                 ],
                 "temperature": 0.8
@@ -1224,7 +1224,7 @@ def _fallback_script(topic_tr, topic_en, target=150):
     topic_translit = to_accurate_translit(topic_tr)
     phases = [
         [
-            ('Host2', 'สวัสดีค่ะโทน วันนี้มาลีอยู่ที่บ้านค่ะ', 'Hello Ton. Mali is at home today.'),
+            ('Host2', 'สวัสดีค่ะโทน วันนี้ฉันอยู่ที่บ้านค่ะ', 'Hello Ton. I am at home today.'),
             ('Host1', 'สวัสดีมาลี วันนี้คุณสบายดีไหมครับ', 'Hello Mali. Are you feeling okay today?'),
             ('Host2', 'ฉันสบายดีค่ะ วันนี้เรามีเวลาเดินเล่น', "I'm fine. We have time to take a walk today."),
             ('Host1', 'ดีมากครับ เราไปที่สวนไหมครับ', 'Great. Shall we go to the park?'),
@@ -1309,9 +1309,9 @@ def generate_script():
     # Short 2-line intro: FEMALE (Host2) first, then MALE (Host1)
     topic_translit = to_accurate_translit(topic_tr)
     all_turns[0]["speaker"] = "Host2"
-    all_turns[0]["target"] = 'สวัสดีค่ะโทน วันนี้มาลีอยู่ที่บ้านค่ะ'
-    all_turns[0]["translit"] = to_accurate_translit('สวัสดีค่ะโทน วันนี้มาลีอยู่ที่บ้านค่ะ')
-    all_turns[0]["english"] = 'Hello Ton. Mali is at home today.'
+    all_turns[0]["target"] = 'สวัสดีค่ะโทน วันนี้ฉันอยู่ที่บ้านค่ะ'
+    all_turns[0]["translit"] = to_accurate_translit('สวัสดีค่ะโทน วันนี้ฉันอยู่ที่บ้านค่ะ')
+    all_turns[0]["english"] = 'Hello Ton. I am at home today.'
     if len(all_turns) > 1:
         all_turns[1]["speaker"] = "Host1"
         all_turns[1]["target"] = 'สวัสดีมาลี วันนี้คุณสบายดีไหมครับ'
